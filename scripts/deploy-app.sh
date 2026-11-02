@@ -5,7 +5,7 @@
 # As user data:          paste the whole script and set DB_IP below (user data can't take arguments)
 set -e   # stop if something fails
 
-DB_IP="${1:-172.31.62.214}"          # DB instance private IP
+DB_IP="${10.0.3.168}"          # DB instance private IP
 MONGODB_URI="mongodb://${DB_IP}:27017/tictactoe"
 REPO_URL="https://github.com/daria-dot/tech613-tictactoe.git"
 
