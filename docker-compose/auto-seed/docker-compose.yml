@@ -1,0 +1,25 @@
+services:
+  db:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      retries: 10
+
+  app:
+    image: dashaneuro/tech613-tttapp:1.2.0
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://db:27017/tictactoe
+    command: sh -c "node seeds/seed.js && node index.js"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mongo-data:
